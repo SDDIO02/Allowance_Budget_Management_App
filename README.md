@@ -1,6 +1,3 @@
-# # ==============================
-# Class: Expense
-# ==============================
 class Expense:
     def __init__(self, expense_name: str, amount: float, date: str):
         self.expense_name: str = expense_name
@@ -8,12 +5,8 @@ class Expense:
         self.date: str = date
 
     def getExpense(self):
-        return f"{self.expense_name} - ₱{self.amount:.2f} on {self.date}"
-
-
-# ==============================
-# Class: Budget
-# ==============================
+        return f"{self.expense_name} - ₱{self.amount:.2f} on {self.date}
+        
 class Budget:
     def __init__(self, budget_amount: float = 0.0, budget_type: str = "Not Set"):
         self.budget_amount: float = budget_amount
@@ -26,10 +19,6 @@ class Budget:
     def getBudget(self):
         return f"Budget Type: {self.type}, Amount: ₱{self.budget_amount:.2f}"
 
-
-# ==============================
-# Class: User
-# ==============================
 class User:
     def __init__(self, name: str):
         self.name: str = name
@@ -61,11 +50,7 @@ class User:
 
     def getTotalExpenses(self):
         return sum(exp.amount for exp in self.expenses)
-
-
-# ==============================
-# Class: Dashboard
-# ==============================
+        
 class Dashboard:
     def __init__(self, user):
         self.user = user
@@ -102,10 +87,6 @@ class Dashboard:
         else:
             print("Please set a budget first.")
 
-
-# ==============================
-# Class: Report
-# ==============================
 class Report:
     def __init__(self, user):
         self.user = user
@@ -133,9 +114,7 @@ class Report:
             print("\nBudget is under control.")
 
 
-# ==============================
-# Expense Input Screen
-# ==============================
+
 def expenseInputScreen(user):
     print("\n===== EXPENSE INPUT SCREEN =====")
 
@@ -151,10 +130,6 @@ def expenseInputScreen(user):
 
     user.addExpense(expense_name, amount, date)
 
-
-# ==============================
-# Main Application
-# ==============================
 def main():
     print("===== EXPENSE TRACKER APPLICATION =====")
 
@@ -204,8 +179,5 @@ def main():
             print("Invalid choice. Please try again.")
 
 
-# ==============================
-# Run Program
-# ==============================
 if __name__ == "__main__":
     main()
