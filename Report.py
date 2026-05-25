@@ -1,61 +1,28 @@
-class Expense:
-    def __init__(self, amount, category):
-        self.amount = amount
-        self.category = category
-        
-class Budget:
-    def __init__(self, totalBudget):
-        self.totalBudget = totalBudget
-        
 class Report:
-    def __init__(self):
-        self.reportData = ""
+    def __init__(self, user):
+        self.user = user
 
-    # generateReport()
-    def generateReport(self, expenses, budget):
-        totalExpenses = sum(exp.amount for exp in expenses)
-        remainingBalance = budget.totalBudget - totalExpenses
-        
-        self.reportData = f"""
-========= FINANCIAL REPORT =========
-Total Budget     : ₱{budget.totalBudget:.2f}
-Total Expenses   : ₱{totalExpenses:.2f}
-Remaining Balance: ₱{remainingBalance:.2f}
+    def displayReport(self):
+        total_expenses = self.user.getTotalExpenses()
+        remaining = self.user.budget.budget_amount - total_expenses
 
-Expense Details:
-"""
-        for exp in expenses:
-          self.reportData += (
-                f"- {exp.category}: ₱{exp.amount:.2f}\n"
-            )
-        return self.reportData
-        
-class User:
-    def __init__(self, name):
-        self.name = name
-        self.expenses = []
-        self.budget = None
+        print("\n===== REPORT PAGE =====")
+        print(f"User: {self.user.name}")
+        print(self.user.budget.getBudget())
+        print(f"Total Expenses: ₱{total_expenses:.2f}")
+        print(f"Remaining Budget: ₱{remaining:.2f}")
 
-    def addExpense(self, expense):
-        self.expenses.append(expense)
+        print("\nExpense Details:")
+        if not self.user.expenses:
+            print("No expenses recorded.")
+        else:
+            for exp in self.user.expenses:
+                print(f"- {exp.getExpense()}")
 
-    def setBudget(self, budget):
-        self.budget = budget
+        if remaining < 0:
+            print("\nYou exceeded your budget!")
+        else:
+            print("\nBudget is under control.")
 
-# Main Program
-user1 = User("Sean")
-# Set Budget
-budget = Budget(10000)
-user1.setBudget(budget)
-# Add Expenses
-user1.addExpense(Expense(2500, "Food"))
-user1.addExpense(Expense(1500, "Transportation"))
-user1.addExpense(Expense(1000, "Bills"))
-# Generate Report
-report = Report()
-generatedReport = report.generateReport(
-    user1.expenses,
-    user1.budget
-)
-# Display Report
-print(generatedReport)
+
+
