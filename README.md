@@ -113,8 +113,6 @@ class Report:
         else:
             print("\nBudget is under control.")
 
-
-
 def expenseInputScreen(user):
     print("\n===== EXPENSE INPUT SCREEN =====")
 
