@@ -85,7 +85,8 @@ class Dashboard:
             else:
                 print("Budget is under control.")
         else:
-            print("Please set a budget first.")
+    
+        print("Please set a budget first.")
 
 class Report:
     def __init__(self, user):
