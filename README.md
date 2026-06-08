@@ -1,181 +1,286 @@
-class Expense:
-    def __init__(self, expense_name: str, amount: float, date: str):
-        self.expense_name: str = expense_name
-        self.amount: float = amount
-        self.date: str = date
+# Allowance Budget Management App
 
-    def getExpense(self):
-        return f"{self.expense_name} - ₱{self.amount:.2f} on {self.date}
-        
-class Budget:
-    def __init__(self, budget_amount: float = 0.0, budget_type: str = "Not Set"):
-        self.budget_amount: float = budget_amount
-        self.type: str = budget_type
+**A user-friendly expense tracking and budget management application to help you manage your finances effectively.**
 
-    def setBudget(self, amount: float, budget_type: str):
-        self.budget_amount: float = amount
-        self.type: str = budget_type
+The Allowance Budget App is developed to help users manage their finances effectively. It allows users to track daily expenses, monitor savings, and organize budgeting activities using a user-friendly interface.
 
-    def getBudget(self):
-        return f"Budget Type: {self.type}, Amount: ₱{self.budget_amount:.2f}"
+---
 
-class User:
-    def __init__(self, name: str):
-        self.name: str = name
-        self.budget: Budget = Budget()   
-        self.expenses: list[Expense] = []
+## Table of Contents
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-    def setBudget(self, amount: float, budget_type: str):
-        if amount < 0:
-            print("Budget cannot be negative.")
-            return
-        self.budget.setBudget(amount, budget_type)
-        print("Budget set successfully!")
+---
 
-    def addExpense(self, expense_name: str, amount: float, date: str):
-        if amount < 0:
-            print("Expense cannot be negative.")
-            return
-        expense = Expense(expense_name, amount, date)
-        self.expenses.append(expense)
-        print("Expense added successfully!")
+## Features
 
-    def viewExpense(self):
-        if not self.expenses:
-            print("No expenses found.")
-        else:
-            print("\n===== EXPENSE LIST =====")
-            for i, exp in enumerate(self.expenses, start=1):
-                print(f"{i}. {exp.getExpense()}")
+✅ **Set and Manage Budgets** - Create budgets with customizable types (Monthly/Weekly)  
+✅ **Track Expenses** - Add and monitor daily expenses with dates  
+✅ **View Expense List** - Display all recorded expenses in an organized format  
+✅ **Budget Dashboard** - Visual dashboard with budget usage percentage and progress bar  
+✅ **Financial Reports** - Comprehensive reports showing budget vs expenses  
+✅ **Input Validation** - Prevents negative amounts and invalid entries  
+✅ **Budget Alerts** - Warnings when budget is exceeded or near the limit  
 
-    def getTotalExpenses(self):
-        return sum(exp.amount for exp in self.expenses)
-        
-class Dashboard:
-    def __init__(self, user):
-        self.user = user
+---
 
-    def showDashboard(self):
-        total_expenses = self.user.getTotalExpenses()
-        budget_amount = self.user.budget.budget_amount
-        remaining = budget_amount - total_expenses
+## Prerequisites
 
-        print("\n===== BUDGET DASHBOARD =====")
-        print(f"User: {self.user.name}")
-        print(f"Budget Type: {self.user.budget.type}")
-        print(f"Total Budget: ₱{budget_amount:.2f}")
-        print(f"Total Expenses: ₱{total_expenses:.2f}")
-        print(f"Remaining Budget: ₱{remaining:.2f}")
+Before installing this application, ensure you have the following:
 
-        if budget_amount > 0:
-            percent = (total_expenses / budget_amount) * 100
-            bars = int(percent // 5)
+- **Python 3.7 or higher** - [Download Python](https://www.python.org/downloads/)
+- **pip** (Python Package Manager) - Usually comes with Python
+- **Git** (optional, for cloning the repository) - [Download Git](https://git-scm.com/)
+- A terminal or command prompt
 
-            bars = min(bars, 20)  # limit to 20 bars
+---
 
-            progress_bar = "█" * bars + "-" * (20 - bars)
+## Installation
 
-            print("\nBudget Usage:")
-            print(f"[{progress_bar}] {percent:.2f}%")
+### Step 1: Clone the Repository
 
-            if percent > 100:
-                print("Warning: Budget exceeded!")
-            elif percent >= 80:
-                print("Caution: Near budget limit.")
-            else:
-                print("Budget is under control.")
-        else:
-            print("Please set a budget first.")
+```bash
+git clone https://github.com/SDDIO02/Allowance_Budget_Management_App.git
+cd Allowance_Budget_Management_App
+```
 
-class Report:
-    def __init__(self, user):
-        self.user = user
+**Or manually download the repository:**
+- Visit the [GitHub repository](https://github.com/SDDIO02/Allowance_Budget_Management_App)
+- Click **Code** → **Download ZIP**
+- Extract the ZIP file to your desired location
 
-    def displayReport(self):
-        total_expenses = self.user.getTotalExpenses()
-        remaining = self.user.budget.budget_amount - total_expenses
+### Step 2: Verify Python Installation
 
-        print("\n===== REPORT PAGE =====")
-        print(f"User: {self.user.name}")
-        print(self.user.budget.getBudget())
-        print(f"Total Expenses: ₱{total_expenses:.2f}")
-        print(f"Remaining Budget: ₱{remaining:.2f}")
+Check if Python is installed on your system:
 
-        print("\nExpense Details:")
-        if not self.user.expenses:
-            print("No expenses recorded.")
-        else:
-            for exp in self.user.expenses:
-                print(f"- {exp.getExpense()}")
+```bash
+python --version
+```
 
-        if remaining < 0:
-            print("\nYou exceeded your budget!")
-        else:
-            print("\nBudget is under control.")
+Or on some systems:
 
-def expenseInputScreen(user):
-    print("\n===== EXPENSE INPUT SCREEN =====")
+```bash
+python3 --version
+```
 
-    expense_name = input("Enter Expense Name: ")
+You should see Python 3.7 or higher installed.
 
-    try:
-        amount = float(input("Enter Amount: ₱"))
-    except ValueError:
-        print("Invalid amount.")
-        return
+### Step 3: Navigate to the Project Directory
 
-    date = input("Enter Date (MM/DD/YYYY): ")
+```bash
+cd Allowance_Budget_Management_App
+```
 
-    user.addExpense(expense_name, amount, date)
+### Step 4: Run the Application
 
-def main():
-    print("===== EXPENSE TRACKER APPLICATION =====")
+Execute the main Python file:
 
-    name = input("Enter your name: ")
-    user = User(name)
+```bash
+python main.py
+```
 
-    while True:
-        print("\n========== MAIN MENU ==========")
-        print("1. Set Budget")
-        print("2. Expense Input Screen")
-        print("3. View Expenses")
-        print("4. Budget Dashboard")
-        print("5. Report Page")
-        print("6. Exit")
+Or on some systems:
 
-        choice = input("Enter your choice: ")
+```bash
+python3 main.py
+```
 
-        if choice == "1":
-            try:
-                amount = float(input("Enter Budget Amount: ₱"))
-            except ValueError:
-                print("Invalid budget amount.")
-                continue
+The application will start and display the welcome message.
 
-            btype = input("Enter Budget Type (Monthly/Weekly): ")
-            user.setBudget(amount, btype)
+---
 
-        elif choice == "2":
-            expenseInputScreen(user)
+## Usage
 
-        elif choice == "3":
-            user.viewExpense()
+Once the application is running, follow these steps:
 
-        elif choice == "4":
-            dashboard = Dashboard(user)
-            dashboard.showDashboard()
+### 1. **Enter Your Name**
+   - The application will prompt you to enter your name
+   - Example: `John Doe`
 
-        elif choice == "5":
-            report = Report(user)
-            report.displayReport()
+### 2. **Main Menu Options**
 
-        elif choice == "6":
-            print("Thank you for using Expense Tracker!")
-            break
+```
+========== MAIN MENU ==========
+1. Set Budget
+2. Expense Input Screen
+3. View Expenses
+4. Budget Dashboard
+5. Report Page
+6. Exit
+```
 
-        else:
-            print("Invalid choice. Please try again.")
+### Option 1: Set Budget
+- Enter the budget amount (e.g., 5000)
+- Enter budget type (e.g., Monthly or Weekly)
+- Budget is set successfully!
 
+### Option 2: Expense Input Screen
+- Enter expense name (e.g., Groceries)
+- Enter amount (e.g., 500)
+- Enter date in MM/DD/YYYY format (e.g., 06/08/2026)
+- Expense is added successfully!
 
-if __name__ == "__main__":
-    main()
+### Option 3: View Expenses
+- Displays all recorded expenses in a formatted list
+- Shows expense name, amount, and date
+
+### Option 4: Budget Dashboard
+- Visual overview of your budget
+- Shows total budget, expenses, and remaining balance
+- Progress bar indicating budget usage percentage
+- Alerts if budget is exceeded or near limit
+
+### Option 5: Report Page
+- Detailed financial report
+- Lists all expenses with breakdown
+- Shows budget status and remaining balance
+
+### Option 6: Exit
+- Closes the application
+
+---
+
+## Project Structure
+
+```
+Allowance_Budget_Management_App/
+│
+├── main.py                 # Main application file
+├── README.md              # Documentation (this file)
+└── .gitignore            # Git ignore file
+```
+
+---
+
+## Code Classes
+
+### **Expense Class**
+Stores individual expense information:
+- `expense_name`: Name of the expense
+- `amount`: Amount spent
+- `date`: Date of the expense
+
+### **Budget Class**
+Manages budget information:
+- `budget_amount`: Total budget amount
+- `budget_type`: Type of budget (Monthly/Weekly)
+
+### **User Class**
+Core user management:
+- `name`: User's name
+- `budget`: User's budget object
+- `expenses`: List of expenses
+
+### **Dashboard Class**
+Displays budget overview with visual indicators
+
+### **Report Class**
+Generates comprehensive financial reports
+
+---
+
+## Example Usage
+
+```
+===== EXPENSE TRACKER APPLICATION =====
+Enter your name: Maria Santos
+
+========== MAIN MENU ==========
+1. Set Budget
+2. Expense Input Screen
+3. View Expenses
+4. Budget Dashboard
+5. Report Page
+6. Exit
+
+Enter your choice: 1
+Enter Budget Amount: ₱10000
+Enter Budget Type (Monthly/Weekly): Monthly
+Budget set successfully!
+
+Enter your choice: 2
+===== EXPENSE INPUT SCREEN =====
+Enter Expense Name: Groceries
+Enter Amount: ₱2500
+Enter Date (MM/DD/YYYY): 06/01/2026
+Expense added successfully!
+
+Enter your choice: 4
+===== BUDGET DASHBOARD =====
+User: Maria Santos
+Budget Type: Monthly
+Total Budget: ₱10000.00
+Total Expenses: ₱2500.00
+Remaining Budget: ₱7500.00
+
+Budget Usage:
+[█████-----] 25.00%
+Budget is under control.
+```
+
+---
+
+## Troubleshooting
+
+### Issue: "Python command not found"
+**Solution:** 
+- Ensure Python is installed and added to your system PATH
+- Try using `python3` instead of `python`
+- On Windows, reinstall Python and check "Add Python to PATH"
+
+### Issue: "Invalid amount" error
+**Solution:**
+- Ensure you enter a numeric value for the amount
+- Don't include currency symbols (₱ is added automatically)
+
+### Issue: "Date format incorrect"
+**Solution:**
+- Always use MM/DD/YYYY format for dates
+- Example: 06/08/2026 (June 8, 2026)
+
+---
+
+## Features Roadmap
+
+Future enhancements:
+- 💾 Data persistence (save/load data)
+- 📊 Advanced charts and analytics
+- 💰 Multiple currency support
+- 🔔 Email notifications for budget alerts
+- 📱 Mobile app version
+- 🗂️ Category-based expense tracking
+
+---
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add YourFeature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## Contact & Support
+
+For questions or issues, please:
+- Open an issue on [GitHub Issues](https://github.com/SDDIO02/Allowance_Budget_Management_App/issues)
+- Contact the repository owner: SDDIO02
+
+---
+
+**Happy budgeting! 💰**
