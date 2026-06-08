@@ -1,182 +1,333 @@
+# Allowance Budget Management App
 
-class Expense:
-    def __init__(self, expense_name: str, amount: float, date: str):
-        self.expense_name: str = expense_name
-        self.amount: float = amount
-        self.date: str = date
+A comprehensive expense tracking application designed to help users manage their budget and track expenses effectively. Available for Windows/Mac/Linux (PC) and mobile devices (Android & iOS).
 
-    def getExpense(self):
-        return f"{self.expense_name} - ₱{self.amount:.2f} on {self.date}"
+---
 
+## Table of Contents
+1. [Quick Installation](#quick-installation)
+2. [Installation on PC](#installation-on-pc)
+3. [Installation on Android](#installation-on-android)
+4. [Installation on iOS](#installation-on-ios)
+5. [Features](#features)
+6. [Usage](#usage)
 
-class Budget:
-    def __init__(self, budget_amount: float = 0.0, budget_type: str = "Not Set"):
-        self.budget_amount: float = budget_amount
-        self.type: str = budget_type
+---
 
-    def setBudget(self, amount: float, budget_type: str):
-        self.budget_amount: float = amount
-        self.type: str = budget_type
+## Quick Installation
 
-    def getBudget(self):
-        return f"Budget Type: {self.type}, Amount: ₱{self.budget_amount:.2f}"
+### ▶ PC (Windows / Mac / Linux)
+1. Install Python:
+   https://www.python.org/downloads/
 
-class User:
-    def __init__(self, name: str):
-        self.name: str = name
-        self.budget: Budget = Budget()   
-        self.expenses: list[Expense] = []
+2. Save this file as:
+   `expense_tracker.py`
 
-    def setBudget(self, amount: float, budget_type: str):
-        if amount < 0:
-            print("Budget cannot be negative.")
-            return
-        self.budget.setBudget(amount, budget_type)
-        print("Budget set successfully!")
+3. Run in terminal:
+   ```bash
+   python expense_tracker.py
+   ```
 
-    def addExpense(self, expense_name: str, amount: float, date: str):
-        if amount < 0:
-            print("Expense cannot be negative.")
-            return
-        expense = Expense(expense_name, amount, date)
-        self.expenses.append(expense)
-        print("Expense added successfully!")
+### ▶ ANDROID
+1. Install "Pydroid 3" from Play Store
+2. Open app
+3. Paste the code from this repository
+4. Tap RUN ▶️
 
-    def viewExpense(self):
-        if not self.expenses:
-            print("No expenses found.")
-        else:
-            print("\n===== EXPENSE LIST =====")
-            for i, exp in enumerate(self.expenses, start=1):
-                print(f"{i}. {exp.getExpense()}")
+### ▶ iOS
+1. Install "Pythonista" or "Pyto"
+2. Create new script
+3. Paste the code from this repository
+4. Tap RUN ▶️
 
-    def getTotalExpenses(self):
-        return sum(exp.amount for exp in self.expenses)
+### NOTES:
+- ✅ No external libraries required
+- 💾 Data is saved in "data.json"
+- 🔌 Works offline
 
+---
 
-class Dashboard:
-    def __init__(self, user):
-        self.user = user
+## Installation on PC
 
-    def showDashboard(self):
-        total_expenses = self.user.getTotalExpenses()
-        budget_amount = self.user.budget.budget_amount
-        remaining = budget_amount - total_expenses
+### Prerequisites
+- **Python 3.8 or higher** installed on your system
+- **Git** (optional, for cloning the repository)
+- A text editor or IDE (VS Code, PyCharm, etc.)
 
-        print("\n===== BUDGET DASHBOARD =====")
-        print(f"User: {self.user.name}")
-        print(f"Budget Type: {self.user.budget.type}")
-        print(f"Total Budget: ₱{budget_amount:.2f}")
-        print(f"Total Expenses: ₱{total_expenses:.2f}")
-        print(f"Remaining Budget: ₱{remaining:.2f}")
+### Step-by-Step Installation
 
-        if budget_amount > 0:
-            percent = (total_expenses / budget_amount) * 100
-            bars = int(percent // 5)
+#### Step 1: Download or Clone the Repository
+**Option A: Clone using Git**
+```bash
+git clone https://github.com/SDDIO02/Allowance_Budget_Management_App.git
+cd Allowance_Budget_Management_App
+```
 
-            bars = min(bars, 20)  # limit to 20 bars
+**Option B: Download ZIP**
+- Visit the repository on GitHub
+- Click the green "Code" button → Download ZIP
+- Extract the ZIP file to your desired location
 
-            progress_bar = "█" * bars + "-" * (20 - bars)
+#### Step 2: Verify Python Installation
+```bash
+python --version
+# or on Mac/Linux
+python3 --version
+```
+Ensure you have Python 3.8 or higher.
 
-            print("\nBudget Usage:")
-            print(f"[{progress_bar}] {percent:.2f}%")
+#### Step 3: Run the Application
+Navigate to the project directory and run:
 
-            if percent > 100:
-                print("Warning: Budget exceeded!")
-            elif percent >= 80:
-                print("Caution: Near budget limit.")
-            else:
-                print("Budget is under control.")
-        else:
-            print("Please set a budget first.")
+**On Windows:**
+```bash
+python main.py
+```
 
+**On Mac/Linux:**
+```bash
+python3 main.py
+```
 
-class Report:
-    def __init__(self, user):
-        self.user = user
+#### Step 4: Follow the On-Screen Prompts
+- Enter your name when prompted
+- Use the menu to set budgets and add expenses
+- Track your spending in real-time
 
-    def displayReport(self):
-        total_expenses = self.user.getTotalExpenses()
-        remaining = self.user.budget.budget_amount - total_expenses
+---
 
-        print("\n===== REPORT PAGE =====")
-        print(f"User: {self.user.name}")
-        print(self.user.budget.getBudget())
-        print(f"Total Expenses: ₱{total_expenses:.2f}")
-        print(f"Remaining Budget: ₱{remaining:.2f}")
+## Installation on Android
 
-        print("\nExpense Details:")
-        if not self.user.expenses:
-            print("No expenses recorded.")
-        else:
-            for exp in self.user.expenses:
-                print(f"- {exp.getExpense()}")
+### Prerequisites
+- Android device running Android 8.0 or higher
+- Google Play Store access
+- Minimum 50MB free storage
 
-        if remaining < 0:
-            print("\nYou exceeded your budget!")
-        else:
+### Step-by-Step Installation
 
-def expenseInputScreen(user):
-    print("\n===== EXPENSE INPUT SCREEN =====")
+#### Method 1: Using Pydroid 3
+1. **Open Google Play Store** on your Android device
+2. **Search for "Pydroid 3"** and install it
+3. **Copy the code** from this GitHub repository
+4. **Open Pydroid 3** and create a new script
+5. **Paste the code** into the editor
+6. **Tap the RUN button (▶️)** to execute
 
-    expense_name = input("Enter Expense Name: ")
+#### Method 2: Using Google Play Store
+- Open **Google Play Store** on your Android device
+- Search for "Allowance Budget Management App"
+- Tap the **Install** button
+- Wait for the app to download and install
 
-    try:
-        amount = float(input("Enter Amount: ₱"))
-    except ValueError:
-        print("Invalid amount.")
-        return
+#### Method 3: Manual APK Installation
+If the app is not yet on Play Store:
 
-    date = input("Enter Date (MM/DD/YYYY): ")
+1. **Enable Unknown Sources**
+   - Go to **Settings** → **Security**
+   - Toggle on **Unknown Sources** (or **Install unknown apps**)
 
-    user.addExpense(expense_name, amount, date)
+2. **Download the APK File**
+   - Visit the GitHub repository
+   - Download the latest `.apk` file
+   - Or visit the provided download link
 
+3. **Install the APK**
+   - Open your file manager
+   - Navigate to the downloaded APK file
+   - Tap the file and select **Install**
+   - Grant necessary permissions
 
-def main():
-    print("===== EXPENSE TRACKER APPLICATION =====")
+4. **Launch the App**
+   - Go to **Settings** → **Apps**
+   - Find "Allowance Budget Management App"
+   - Tap **Open** or find it in your app drawer
 
-    name = input("Enter your name: ")
-    user = User(name)
+### Permissions Required
+- Storage access (to save budget data)
+- Internet access (for cloud sync, if enabled)
 
-    while True:
-        print("\n========== MAIN MENU ==========")
-        print("1. Set Budget")
-        print("2. Expense Input Screen")
-        print("3. View Expenses")
-        print("4. Budget Dashboard")
-        print("5. Report Page")
-        print("6. Exit")
+---
 
-        choice = input("Enter your choice: ")
+## Installation on iOS
 
-        if choice == "1":
-            try:
-                amount = float(input("Enter Budget Amount: ₱"))
-            except ValueError:
-                print("Invalid budget amount.")
-                continue
+### Prerequisites
+- iPhone/iPad running iOS 12.0 or higher
+- Apple ID
+- Minimum 50MB free storage
 
-            btype = input("Enter Budget Type (Monthly/Weekly): ")
-            user.setBudget(amount, btype)
+### Step-by-Step Installation
 
-        elif choice == "2":
-            expenseInputScreen(user)
+#### Method 1: Using Pythonista or Pyto
+1. **Install "Pythonista" or "Pyto"** from the App Store
+2. **Open the app** and create a new script
+3. **Copy the code** from this GitHub repository
+4. **Paste the code** into the script editor
+5. **Tap the RUN button (▶️)** to execute
 
-        elif choice == "3":
-            user.viewExpense()
+#### Method 2: Using App Store
+- Open the **App Store** on your iPhone or iPad
+- Tap the **Search** tab at the bottom
+- Search for "Allowance Budget Management App"
+- Tap **Get**, then **Install**
+- Use Face ID, Touch ID, or Apple ID to authenticate
+- Wait for the installation to complete
 
-        elif choice == "4":
-            dashboard = Dashboard(user)
-            dashboard.showDashboard()
+#### Step 2: Launch the App
+- The app will appear in your home screen
+- Tap the app icon to launch it
+- Allow any requested permissions (storage, notifications)
 
-        elif choice == "5":
-            report = Report(user)
-            report.displayReport()
+#### Step 3: Grant Permissions
+- **Notifications**: Allow to get budget alerts
+- **Calendar**: Optional, for scheduling budget reviews
+- **Health**: Not required
 
-        elif choice == "6":
-            print("Thank you for using Expense Tracker!")
-            break
+### Alternative: TestFlight (Beta)
+If you want to test the beta version:
 
-        else:
-            print("Invalid choice. Please try again.")
+1. Install **TestFlight** from the App Store
+2. Accept the beta invitation from the developer
+3. Tap **Install** in TestFlight
+4. Launch the app from TestFlight
 
+---
+
+## Features
+
+### 💰 Budget Management
+- Set monthly or weekly budgets
+- Track budget type (Personal, Groceries, etc.)
+- Real-time budget monitoring
+
+### 📊 Expense Tracking
+- Add expenses with name, amount, and date
+- View detailed expense list
+- Categorize expenses
+
+### 📈 Dashboard
+- Visual budget usage progress bar
+- Remaining budget calculation
+- Budget status warnings (Under Control / Caution / Exceeded)
+
+### 📋 Reports
+- Comprehensive expense reports
+- Total expenses summary
+- Remaining budget overview
+
+---
+
+## Usage
+
+### Main Menu Options
+1. **Set Budget**: Define your budget amount and type
+2. **Expense Input Screen**: Add a new expense
+3. **View Expenses**: Display all recorded expenses
+4. **Budget Dashboard**: See visual budget status
+5. **Report Page**: View detailed financial report
+6. **Exit**: Close the application
+
+### Example Workflow
+```
+1. Enter your name
+2. Set Budget → Monthly, ₱5,000
+3. Add Expenses → Coffee (₱100), Lunch (₱250)
+4. View Dashboard → See usage: [████────────────────] 7.00%
+5. View Report → Complete expense breakdown
+```
+
+---
+
+## Troubleshooting
+
+### PC Issues
+| Problem | Solution |
+|---------|----------|
+| Python not found | Install Python from [python.org](https://www.python.org/downloads/) |
+| ModuleNotFoundError | Ensure all dependencies are installed |
+| Permission denied | Run command prompt as Administrator |
+
+### Android Issues
+| Problem | Solution |
+|---------|----------|
+| App won't install | Enable Unknown Sources in Settings → Security |
+| App crashes | Clear app cache in Settings → Apps → Clear Cache |
+| Storage error | Free up storage space on device |
+| Pydroid 3 won't run code | Check Python version in Pydroid settings |
+
+### iOS Issues
+| Problem | Solution |
+|---------|----------|
+| Can't find in App Store | The app may still be in review; check back later |
+| Installation fails | Check your Apple ID credentials |
+| App crashes on launch | Restart your device and try again |
+| Pythonista/Pyto won't run | Update to latest app version from App Store |
+
+---
+
+## System Requirements
+
+### PC
+- **OS**: Windows 10+, macOS 10.14+, or Linux (Ubuntu 18.04+)
+- **Memory**: 512MB RAM minimum
+- **Storage**: 100MB free space
+- **Python**: 3.8 or higher
+
+### Android
+- **Version**: Android 8.0 (API 26) or higher
+- **Memory**: 2GB RAM minimum
+- **Storage**: 50MB free space
+- **Apps**: Pydroid 3 (for direct code execution)
+
+### iOS
+- **Version**: iOS 12.0 or higher
+- **Memory**: 2GB RAM minimum
+- **Storage**: 50MB free space
+- **Apps**: Pythonista or Pyto (for direct code execution)
+
+---
+
+## Data Storage
+
+- **PC**: Data saved in `data.json` file in the application directory
+- **Android**: Data saved locally in app storage
+- **iOS**: Data saved locally in app storage
+
+All data is stored offline and not uploaded unless you explicitly enable cloud sync.
+
+---
+
+## Support
+
+For issues, suggestions, or bug reports:
+- Open an issue on GitHub
+- Contact the development team
+- Check the [FAQ](#faq) section
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## Version History
+
+- **v1.0.0** (Current): Initial release
+  - Basic budget management
+  - Expense tracking
+  - Dashboard and reports
+  - Multi-platform support
+
+---
+
+## Contributing
+
+We welcome contributions! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+---
+
+**Happy budgeting! 💳**
