@@ -156,7 +156,7 @@ def expenseInputScreen(user):
 # Main Application
 # ==============================
 def main():
-    print("===== EXPENSE TRACKER APPLICATION =====")
+    print("===== ALLOWANCE BUDGET APPLICATION =====")
 
     name = input("Enter your name: ")
     user = User(name)
